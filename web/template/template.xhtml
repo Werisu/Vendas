@@ -8,7 +8,7 @@
     <!--<f:view contentType="text\html">-->
        <h:head>
            <h:outputStylesheet library="css" name="style.css"/>
-           <h:outputScript library="js" name="scripts.js" />
+           <!--<h:outputScript library="js" name="scripts.js" />-->
             <title>Estoque</title>
             
         </h:head>
@@ -27,13 +27,14 @@
                     <h:form>
                         <p:panelMenu>
                             <p:submenu label="Arquivo">
-                                <p:menuitem value="Principal" url="#" outcome="index.xhtml" />
+                                <p:menuitem value="Principal" url="/jsf/index.xhtml" />
                                 <p:menuitem value="Sair"/>
                             </p:submenu>
                             <p:submenu label="Cadastro">
                                 <p:menuitem value="Produtos"/>
                                 <p:menuitem value="Fornecedores"/>
                                 <p:menuitem value="Funcionarios"/>
+                                <p:menuitem value="Estado" url="/jsf/pages/estado.xhtml"  />
                             </p:submenu>
                             <p:submenu label="Vendas">
                             </p:submenu>

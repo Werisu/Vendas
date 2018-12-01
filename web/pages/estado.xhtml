@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/template/template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">
+        
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <h:form>
+            <h3 style="margin-left:5px">Cadastro de Estados</h3>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="ID" />
+                    <p:inputText id="id" value="#{estadoBean.estado.id}" disabled="true" />
+                    
+                    <p:outputLabel value="Nome" />
+                    <p:inputText id="nome" value="#{estadoBean.estado.nome}" onblur="value=value.toUpperCase()" />
+                    
+                    <p:outputLabel value="Sigla" />
+                    <p:inputText id="sigla" value="#{estadoBean.estado.sigla}" onblur="value=value.toUpperCase()" />
+                    
+                    <p:commandButton value="Salvar" icon="ui-icon-check" action="#{estadoBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaEstado" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:dataTable var="est" id="tabelaEstado" widgetVar="estTable" value="#{estadoBean.lista}">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right !important;">
+                                <h:outputText value="Pesquisar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('estTable').filter()" placeholder="Digite" />
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{est.id}" headerText="ID">
+                            <h:outputText value="#{est.id}" />
+                        </p:column>
+                        <p:column filterBy="#{est.nome}" headerText=" Nome">
+                            <h:outputText value="#{est.nome}" />
+                        </p:column>
+                        <p:column filterBy="#{est.sigla}" headerText="Sigla">
+                            <h:outputText value="#{est.sigla}" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:decorate>
+
