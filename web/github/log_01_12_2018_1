@@ -1,0 +1,42 @@
+==[IDE]== 01/12/2018 01:23:59 Inicializando...
+Inicializando repositório
+Criando diretório Git C:\Users\Wellysson\Documents\NetBeansProjects\Vendas/.git
+git init C:\Users\Wellysson\Documents\NetBeansProjects\Vendas
+==[IDE]== 01/12/2018 01:24:03 Inicializando... finalizado.
+==[IDE]== 01/12/2018 01:25:42 Adição Git
+git add C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\sql.sql C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\biblioteca\sam-1.0.10.jar C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\hibernate.cfg.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\build.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\ant-deploy.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\template\template.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\build-impl.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\WEB-INF\web.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\genfiles.properties C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\project.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\imagens\logo.png C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\util\HibernateUtil.java C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\conf\MANIFEST.MF C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\conf\persistence.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\ML.mwb.bak C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\resources\css\style.css C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\project.properties C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\welcomePrimefaces.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\index.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\ML.mwb C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\WEB-INF\glassfish-resources.xml
+build.xml
+nbproject/ant-deploy.xml
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/project.properties
+nbproject/project.xml
+src/conf/MANIFEST.MF
+src/conf/persistence.xml
+src/java/biblioteca/sam-1.0.10.jar
+src/java/hibernate.cfg.xml
+src/java/util/HibernateUtil.java
+web/WEB-INF/glassfish-resources.xml
+web/WEB-INF/web.xml
+web/banco de dados/ML.mwb
+web/banco de dados/ML.mwb.bak
+web/banco de dados/sql.sql
+web/imagens/logo.png
+web/index.xhtml
+web/resources/css/style.css
+web/template/template.xhtml
+web/welcomePrimefaces.xhtml
+==[IDE]== 01/12/2018 01:25:45 Adição Git finalizado.
+==[IDE]== 01/12/2018 01:26:16 Fazendo Commit...
+Commit do Git
+----------
+git commit -m Commit inicial do projeto C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\sql.sql C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\biblioteca\sam-1.0.10.jar C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\hibernate.cfg.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\build.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\ant-deploy.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\template\template.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\build-impl.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\WEB-INF\web.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\genfiles.properties C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\project.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\imagens\logo.png C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\java\util\HibernateUtil.java C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\conf\MANIFEST.MF C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\src\conf\persistence.xml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\ML.mwb.bak C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\resources\css\style.css C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\nbproject\project.properties C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\welcomePrimefaces.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\index.xhtml C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\banco de dados\ML.mwb C:\Users\Wellysson\Documents\NetBeansProjects\Vendas\web\WEB-INF\glassfish-resources.xml
+Log de Commit
+revisão   : 0d731b8cdd0016691b330ae984f4e1bce133e5f2
+autor     : Weriso <wellysson35@gmail.com>
+data       : 01/12/2018 01:26:17
+resumo    : Commit inicial do projeto
+
+INFO: fim do Commit
+
+==[IDE]== 01/12/2018 01:26:17 Fazendo Commit... finalizado.
