@@ -51,5 +51,6 @@ Contributor(s):
     <mapping class="controle.Cidade"/>
     <mapping class="controle.Estado"/>
     <mapping class="controle.Funcionario"/>
+    <mapping class="controle.Fornecedor"/>
   </session-factory>
 </hibernate-configuration>

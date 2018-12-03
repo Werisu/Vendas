@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/template/template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">
+        
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <h:form id="panel">
+            <h3 style="margin-left:5px">Fornecedores</h3>
+            <p:panel id="dados" header="Dados Principais" style="margin-bottom:20px">
+                <h:panelGrid columns="6" cellpadding="5">
+                    <p:outputLabel value="ID" />
+                    <p:inputText id="id" value="#{fornecedorBean.fornecedor.id}" disabled="true" />
+                    
+                    <p:outputLabel value="CNPJ" />
+                    <p:inputMask mask="99.999.999/9999-99" id="cnpj" value="#{fornecedorBean.fornecedor.cnpj}" />
+                    
+                    <p:outputLabel value="IE" />
+                    <p:inputMask mask="999.999.999.999" id="ie" value="#{fornecedorBean.fornecedor.inscEstadual}" />
+                </h:panelGrid>
+            
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="Nome Fantasia" />
+                    <p:inputText id="fantasia" value="#{fornecedorBean.fornecedor.nomeFantasia}" size="74" />
+                    <p:outputLabel value="Razão Social" />
+                    <p:inputText id="razaoSocial" value="#{fornecedorBean.fornecedor.razaoSocial}" size="74" />        
+                </h:panelGrid>
+            </p:panel>
+            
+            <p:panel id="lcalizacao" header="Localização" style="margin-bottom:20px">
+                <h:panelGrid columns="6" cellpadding="5">
+                    <p:outputLabel value="Endereco" />
+                    <p:inputText id="endereco" value="#{fornecedorBean.fornecedor.endereco}" size="40" />
+                    <p:outputLabel value="Complemento" />
+                    <p:inputText id="complemento" value="#{fornecedorBean.fornecedor.complemento}" size="40" />
+                    <p:outputLabel value="Bairro" />
+                    <p:inputText id="bairro" value="#{fornecedorBean.fornecedor.bairro}" size="30" />
+                </h:panelGrid>
+                <h:panelGrid columns="10" cellpadding="5">
+                    <p:outputLabel value="Cidade" />
+                    <p:selectOneMenu id="cidade" filter="true" value="#{fornecedorBean.fornecedor.cidade}" converter="omnifaces.SelectItemsConverter" >
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{fornecedorBean.cidades}" var="cons" itemLabel="#{cons.nome} - #{cons.estadoId.sigla}" itemValue="#{cons}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="CEP" />
+                    <p:inputMask mask="99999-999" id="cep" value="#{fornecedorBean.fornecedor.cep}" size="8" />
+                    <p:outputLabel value="Telefone" />
+                    <p:inputMask mask="(99) 99999-9999" id="telefone" value="#{fornecedorBean.fornecedor.telefone}" size="12" />
+                    <p:outputLabel value="Email" />
+                    <p:inputText value="#{fornecedorBean.fornecedor.email}" />
+                </h:panelGrid>
+            </p:panel>
+            
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{fornecedorBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFornecedor" />
+                    <p:commandButton value="Reset Code" update="panel" process="@this" action="#{fornecedorBean.reset()}"  style="margin-right:20px;" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:dataTable var="ver" id="tabelaFornecedor" widgetVar="verTable" value="#{fornecedorBean.lista}">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right !important;">
+                                <h:outputText value="Pesquisar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('verTable').filter()" placeholder="Digite" />
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{ver.id}" style="width: 5%;" headerText="ID">
+                            <h:outputText value="#{ver.id}" />
+                        </p:column>
+                        <p:column filterBy="#{ver.nomeFantasia}" headerText=" Nome">
+                            <h:outputText value="#{ver.nomeFantasia}" />
+                        </p:column>
+                        <p:column filterBy="#{ver.cnpj}" headerText="Sigla">
+                            <h:outputText value="#{ver.cnpj}" />
+                        </p:column>
+                        <p:column style="width:10%;" headerText="Ações">
+                        <center>
+                            <p:commandButton action="#{fornecedorBean.excluir(ver)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tabelaFornecedor" />
+                            <p:commandButton action="#{fornecedorBean.editar(ver)}" icon="ui-icon-pencil" update="@form" process="tabelaFornecedor" ajax="true"/>
+                        </center>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:decorate>
+
