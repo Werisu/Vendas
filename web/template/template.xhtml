@@ -8,6 +8,8 @@
     <!--<f:view contentType="text\html">-->
        <h:head>
            <h:outputStylesheet library="css" name="style.css"/>
+           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"/>
+           <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
            <!--<h:outputScript library="js" name="scripts.js" />-->
             <title>Estoque</title>
             
@@ -33,8 +35,9 @@
                             <p:submenu label="Cadastro">
                                 <p:menuitem value="Produtos"/>
                                 <p:menuitem value="Fornecedores"/>
-                                <p:menuitem value="Funcionarios"/>
-                                <p:menuitem value="Estado" url="/jsf/pages/estado.xhtml"  />
+                                <p:menuitem value="Funcionarios" url="/jsf/pages/funcionario.xhtml"  />
+                                <p:menuitem value="Estados" url="/jsf/pages/estado.xhtml"  />
+                                <p:menuitem value="Cidades" url="/jsf/pages/cidade.xhtml"  />
                             </p:submenu>
                             <p:submenu label="Vendas">
                             </p:submenu>

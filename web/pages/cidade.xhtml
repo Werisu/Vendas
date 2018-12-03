@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/template/template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">
+        
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <h:form>
+            <h3 style="margin-left:5px">Cadastro de Cidades</h3>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="ID" />
+                    <p:inputText id="id" value="#{cidadeBean.cidade.id}" disabled="true" />
+                    
+                    <p:outputLabel value="Nome" />
+                    <p:inputText id="nome" value="#{cidadeBean.cidade.nome}" onblur="value=value.toUpperCase()" />
+                    
+                    <p:outputLabel value="UF" />
+                    <p:selectOneMenu id="cidade" filter="true" value="#{cidadeBean.cidade.estadoId}" converter="omnifaces.SelectItemsConverter" style="width:125px" >
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{cidadeBean.estados}" var="cons" itemLabel="#{cons.sigla}" itemValue="#{cons}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton value="Salvar" icon="ui-icon-check" action="#{cidadeBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaCidade" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:dataTable var="city" id="tabelaCidade" widgetVar="cityTable" value="#{cidadeBean.lista}">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right !important;">
+                                <h:outputText value="Pesquisar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('cityTable').filter()" placeholder="Digite" />
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{city.id}" headerText="ID">
+                            <h:outputText value="#{city.id}" />
+                        </p:column>
+                        <p:column filterBy="#{city.nome}" headerText=" Nome">
+                            <h:outputText value="#{city.nome}" />
+                        </p:column>
+                        <p:column filterBy="#{city.estadoId}" headerText="Sigla">
+                            <h:outputText value="#{city.estadoId.nome}" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:decorate>
+

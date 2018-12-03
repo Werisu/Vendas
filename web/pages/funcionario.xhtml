@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/template/template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">
+        
+        <h:outputScript>
+            $('.dinheiro').mask('###0.00', {reverse: true});
+        </h:outputScript>
+        
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <h:form id="panel">
+            <h3 style="margin-left:5px">Funcionarios</h3>
+                <h:panelGrid columns="1" cellpadding="5" style="width: 50%;">
+                    
+                    <h:panelGrid columns="6" cellpadding="5">
+                        <p:outputLabel value="ID" />
+                        <p:inputText id="id" value="#{funcionarioBean.funcionario.id}" disabled="true" size="4" placeholder="0" />
+                        <p:outputLabel value="Data Entrada" />
+                        <p:inputText id="dataEntrada" value="#{funcionarioBean.funcionario.dataEntrada}" size="9" placeholder="predefinido" disabled="true" />
+                        <p:outputLabel value="Data Saida" />
+                        <p:inputText id="dataSaida" value="#{funcionarioBean.funcionario.dataSaida}" disabled="true" size="9" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="6" cellpadding="5">
+                        <p:outputLabel value="Nome" />
+                        <p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" onblur="value=value.toUpperCase()" size="51" />
+                    
+                        <p:outputLabel value="RG" />
+                        <p:inputText id="rg" value="#{funcionarioBean.funcionario.rg}" />
+
+                        <p:outputLabel value="CPF" />
+                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{funcionarioBean.funcionario.cpf}" size="24" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="6" cellpadding="5">
+                        
+                        <p:outputLabel value="Endereço" />
+                        <p:inputText id="endereco" value="#{funcionarioBean.funcionario.endereco}" onblur="value=value.toUpperCase()" size="40" />
+                        <p:outputLabel value="Complemento" />
+                        <p:inputText id="complemento" value="#{funcionarioBean.funcionario.complemento}" onblur="value=value.toUpperCase()" />
+                        <p:outputLabel value="Bairro" />
+                        <p:inputText id="bairro" value="#{funcionarioBean.funcionario.bairro}" onblur="value=value.toUpperCase()" size="22" />
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="10" cellpadding="5">
+                        <p:outputLabel value="Cidade" />
+                        <p:selectOneMenu id="cidade" filter="true" value="#{funcionarioBean.funcionario.cidade}" converter="omnifaces.SelectItemsConverter" >
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItems value="#{funcionarioBean.cidades}" var="cons" itemLabel="#{cons.nome} - #{cons.estadoId.sigla}" itemValue="#{cons}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="CEP" />
+                        <p:inputMask mask="99999-999" id="cep" value="#{funcionarioBean.funcionario.cep}" size="8" />
+                        
+                        <p:outputLabel value="Telefone" />
+                        <p:inputMask mask="(99) 99999-9999" id="telefone" value="#{funcionarioBean.funcionario.telefone}" size="12" />
+                        <p:outputLabel value="Data Nascimento" />
+                        <p:calendar id="dataNasc" value="#{funcionarioBean.funcionario.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="10" cellpadding="5">
+                        <p:outputLabel value="Salario" />
+                        <p:inputText id="salario" class="dinheiro form-control" value="#{funcionarioBean.funcionario.salario}" />
+                        
+                        <p:outputLabel value="Senha" />
+                        <p:password id="senha" value="#{funcionarioBean.funcionario.senha}" />
+                        
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:commandButton value="Salvar" icon="ui-icon-check" action="#{funcionarioBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFuncionario" />
+                        <p:commandButton value="Reset Code" update="panel" process="@this" action="#{funcionarioBean.reset}"  style="margin-right:20px;" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2">
+                    <p:dataTable var="fun" id="tabelaFuncionario" widgetVar="funTable" value="#{funcionarioBean.lista}">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right !important;">
+                                <h:outputText value="Pesquisar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('funTable').filter()" placeholder="Digite" />
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{fun.id}" style="width:5%;" headerText="ID" >
+                            <h:outputText value="#{fun.id}" />
+                        </p:column>
+                        <p:column filterBy="#{fun.nome}" headerText="Nome">
+                            <h:outputText value="#{fun.nome}" />
+                        </p:column>
+                        <p:column filterBy="#{fun.cpf}" headerText="CPF">
+                            <h:outputText value="#{fun.cpf}" />
+                        </p:column>
+                        <p:column filterBy="#{fun.telefone}" headerText="Telefone">
+                            <h:outputText value="#{fun.telefone}" />
+                        </p:column>
+                        
+                        <p:column style="width:10%;" headerText="Ações">
+                        <center>
+                            <p:commandButton action="#{funcionarioBean.excluir(fun)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tabelaFuncionario" />
+                            <p:commandButton action="#{funcionarioBean.editar(fun)}" icon="ui-icon-pencil" update="@form" process="tabelaFuncionario" ajax="true"/>
+                        </center>
+                    </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:decorate>
+

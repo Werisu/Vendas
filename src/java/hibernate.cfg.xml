@@ -48,6 +48,8 @@ Contributor(s):
     <property name="hibernate.connection.password"/>
     <property name="hibernate.connection.autocommit">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping class="controle.Cidade"/>
     <mapping class="controle.Estado"/>
+    <mapping class="controle.Funcionario"/>
   </session-factory>
 </hibernate-configuration>

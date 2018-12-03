@@ -34,99 +34,34 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Wellysson
  */
 @Entity
-@Table(name = "funcionario")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f")
-    , @NamedQuery(name = "Funcionario.findById", query = "SELECT f FROM Funcionario f WHERE f.id = :id")
-    , @NamedQuery(name = "Funcionario.findByDataEntrada", query = "SELECT f FROM Funcionario f WHERE f.dataEntrada = :dataEntrada")
-    , @NamedQuery(name = "Funcionario.findByDataSaida", query = "SELECT f FROM Funcionario f WHERE f.dataSaida = :dataSaida")
-    , @NamedQuery(name = "Funcionario.findByNome", query = "SELECT f FROM Funcionario f WHERE f.nome = :nome")
-    , @NamedQuery(name = "Funcionario.findByRg", query = "SELECT f FROM Funcionario f WHERE f.rg = :rg")
-    , @NamedQuery(name = "Funcionario.findByCpf", query = "SELECT f FROM Funcionario f WHERE f.cpf = :cpf")
-    , @NamedQuery(name = "Funcionario.findByEndereco", query = "SELECT f FROM Funcionario f WHERE f.endereco = :endereco")
-    , @NamedQuery(name = "Funcionario.findByComplemento", query = "SELECT f FROM Funcionario f WHERE f.complemento = :complemento")
-    , @NamedQuery(name = "Funcionario.findByBairro", query = "SELECT f FROM Funcionario f WHERE f.bairro = :bairro")
-    , @NamedQuery(name = "Funcionario.findByEstado", query = "SELECT f FROM Funcionario f WHERE f.estado = :estado")
-    , @NamedQuery(name = "Funcionario.findByCep", query = "SELECT f FROM Funcionario f WHERE f.cep = :cep")
-    , @NamedQuery(name = "Funcionario.findByTelefone", query = "SELECT f FROM Funcionario f WHERE f.telefone = :telefone")
-    , @NamedQuery(name = "Funcionario.findByDataNascimento", query = "SELECT f FROM Funcionario f WHERE f.dataNascimento = :dataNascimento")
-    , @NamedQuery(name = "Funcionario.findBySalario", query = "SELECT f FROM Funcionario f WHERE f.salario = :salario")
-    , @NamedQuery(name = "Funcionario.findBySenha", query = "SELECT f FROM Funcionario f WHERE f.senha = :senha")
-    , @NamedQuery(name = "Funcionario.findByNivelAcesso", query = "SELECT f FROM Funcionario f WHERE f.nivelAcesso = :nivelAcesso")
-    , @NamedQuery(name = "Funcionario.findByStatus", query = "SELECT f FROM Funcionario f WHERE f.status = :status")})
 public class Funcionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dataEntrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataEntrada;
-    @Column(name = "dataSaida")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataSaida;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nome")
     private String nome;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "rg")
     private String rg;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "cpf")
     private String cpf;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "endereco")
     private String endereco;
-    @Size(max = 45)
-    @Column(name = "complemento")
     private String complemento;
-    @Size(max = 45)
-    @Column(name = "bairro")
     private String bairro;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "estado")
     private int estado;
-    @Size(max = 45)
-    @Column(name = "cep")
     private String cep;
-    @Size(max = 45)
-    @Column(name = "telefone")
     private String telefone;
-    @Column(name = "dataNascimento")
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "salario")
     private BigDecimal salario;
-    @Size(max = 45)
-    @Column(name = "senha")
     private String senha;
-    @Size(max = 45)
-    @Column(name = "nivelAcesso")
     private String nivelAcesso;
-    @Size(max = 45)
-    @Column(name = "status")
     private String status;
     @JoinColumn(name = "cidade", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cidade cidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId")
-    private Collection<Gerente> gerenteCollection;
 
     public Funcionario() {
     }
@@ -287,15 +222,6 @@ public class Funcionario implements Serializable {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    @XmlTransient
-    public Collection<Gerente> getGerenteCollection() {
-        return gerenteCollection;
-    }
-
-    public void setGerenteCollection(Collection<Gerente> gerenteCollection) {
-        this.gerenteCollection = gerenteCollection;
     }
 
     @Override

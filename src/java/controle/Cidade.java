@@ -6,9 +6,7 @@
 package controle;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,46 +16,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Wellysson
  */
 @Entity
-@Table(name = "cidade")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c")
-    , @NamedQuery(name = "Cidade.findById", query = "SELECT c FROM Cidade c WHERE c.id = :id")
-    , @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
 public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
-    private Collection<Cliente> clienteCollection;
     @JoinColumn(name = "estado_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Estado estadoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
-    private Collection<Fornecedor> fornecedorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
-    private Collection<Funcionario> funcionarioCollection;
 
     public Cidade() {
     }
@@ -87,39 +64,12 @@ public class Cidade implements Serializable {
         this.nome = nome;
     }
 
-    @XmlTransient
-    public Collection<Cliente> getClienteCollection() {
-        return clienteCollection;
-    }
-
-    public void setClienteCollection(Collection<Cliente> clienteCollection) {
-        this.clienteCollection = clienteCollection;
-    }
-
     public Estado getEstadoId() {
         return estadoId;
     }
 
     public void setEstadoId(Estado estadoId) {
         this.estadoId = estadoId;
-    }
-
-    @XmlTransient
-    public Collection<Fornecedor> getFornecedorCollection() {
-        return fornecedorCollection;
-    }
-
-    public void setFornecedorCollection(Collection<Fornecedor> fornecedorCollection) {
-        this.fornecedorCollection = fornecedorCollection;
-    }
-
-    @XmlTransient
-    public Collection<Funcionario> getFuncionarioCollection() {
-        return funcionarioCollection;
-    }
-
-    public void setFuncionarioCollection(Collection<Funcionario> funcionarioCollection) {
-        this.funcionarioCollection = funcionarioCollection;
     }
 
     @Override
@@ -144,7 +94,7 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "controle.Cidade[ id=" + id + " ]";
+        return "Controle.Cidade[ id=" + id + " ]";
     }
     
 }
