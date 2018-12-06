@@ -25,6 +25,11 @@ Folha de estilo para a atividade de numero 1
     text-indent: 0px;
     width: 20px;
 }
+
+.row{
+    width: 100%;
+    margin-top: 2%;
+}
 /*
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited{
     background-color: #4682B4;

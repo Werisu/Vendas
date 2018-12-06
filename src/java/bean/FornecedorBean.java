@@ -64,6 +64,11 @@ public class FornecedorBean implements Serializable {
         return "fornecedores.xhtml";
     }
     
+    public String vizu(Fornecedor f){
+        this.fornecedores = f;
+        return "fornecedores.xhtml";
+    }
+    
     public String reset(){
         this.fornecedores = new Fornecedor();
         return "fornecedores.xhtml";

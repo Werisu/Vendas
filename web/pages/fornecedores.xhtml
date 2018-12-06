@@ -9,15 +9,47 @@
     <ui:define name="conteudo">
         
         <p:growl id="growl" showDetail="true" sticky="true" />
+        
+        <style type="text/css">
+            .label {
+                width:20%;
+                padding:4px;
+            }
+
+            .value {
+                width:80%;
+                padding:4px;
+            }
+
+            .grid {
+                width:100%;
+            }
+
+            .error {
+                color: red;
+            }
+
+            .outputLabel {
+                font-weight: bold;
+            }
+
+            .grid {
+                width:33%;
+                padding:4px;
+            }
+        </style>
         <h:form id="panel">
             <h3 style="margin-left:5px">Fornecedores</h3>
+            <p:wizard>
+            <p:tab id="personal" title="Personal">
             <p:panel id="dados" header="Dados Principais" style="margin-bottom:20px">
+                <p:messages />
                 <h:panelGrid columns="6" cellpadding="5">
                     <p:outputLabel value="ID" />
                     <p:inputText id="id" value="#{fornecedorBean.fornecedor.id}" disabled="true" />
                     
                     <p:outputLabel value="CNPJ" />
-                    <p:inputMask mask="99.999.999/9999-99" id="cnpj" value="#{fornecedorBean.fornecedor.cnpj}" />
+                    <p:inputMask mask="99.999.999/9999-99" id="cnpj" value="#{fornecedorBean.fornecedor.cnpj}" required="false" />
                     
                     <p:outputLabel value="IE" />
                     <p:inputMask mask="999.999.999.999" id="ie" value="#{fornecedorBean.fornecedor.inscEstadual}" />
@@ -25,12 +57,15 @@
             
                 <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel value="Nome Fantasia" />
-                    <p:inputText id="fantasia" value="#{fornecedorBean.fornecedor.nomeFantasia}" size="74" />
+                    <p:inputText id="fantasia" value="#{fornecedorBean.fornecedor.nomeFantasia}" size="74" required="false" />
                     <p:outputLabel value="Razão Social" />
-                    <p:inputText id="razaoSocial" value="#{fornecedorBean.fornecedor.razaoSocial}" size="74" />        
+                    <p:inputText id="razaoSocial" value="#{fornecedorBean.fornecedor.razaoSocial}" size="74" required="false" />        
                 </h:panelGrid>
             </p:panel>
+            </p:tab>
             
+            
+            <p:tab id="address" title="Address">
             <p:panel id="lcalizacao" header="Localização" style="margin-bottom:20px">
                 <h:panelGrid columns="6" cellpadding="5">
                     <p:outputLabel value="Endereco" />
@@ -53,39 +88,104 @@
                     <p:outputLabel value="Email" />
                     <p:inputText value="#{fornecedorBean.fornecedor.email}" />
                 </h:panelGrid>
-            </p:panel>
             
                 <h:panelGrid columns="2" cellpadding="5">
-                    <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{fornecedorBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFornecedor" />
+                    <p:commandButton value="Salvar" icon="ui-icon-disk" action="#{fornecedorBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tbl" />
                     <p:commandButton value="Reset Code" update="panel" process="@this" action="#{fornecedorBean.reset()}"  style="margin-right:20px;" />
                 </h:panelGrid>
+            </p:panel>
+            </p:tab>
+            </p:wizard>
                 
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:dataTable var="ver" id="tabelaFornecedor" widgetVar="verTable" value="#{fornecedorBean.lista}">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <p:dataTable var="ver" id="tbl" widgetVar="verTable" value="#{fornecedorBean.lista}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true" rows="10" style="margin-bottom:20px">
                         <f:facet name="header">
                             <p:outputPanel style="text-align: right !important;">
                                 <h:outputText value="Pesquisar: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('verTable').filter()" placeholder="Digite" />
+                                
+                                <!-- Exports -->
+                                <div style="float:left;">
+                                    <h:commandLink>
+                                        <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tbl" fileName="fornecedores" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar pdf">
+                                        <p:graphicImage value="../imagens/pdf.png" width="24"/>
+                                        <p:dataExporter type="pdf" target="tbl" fileName="fornecedores"/>
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                                        <p:dataExporter type="csv" target="tbl" fileName="fornecedores" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar xml">
+                                        <p:graphicImage value="../imagens/xml-512.png" width="24"/>
+                                        <p:dataExporter type="xml" target="tbl" fileName="fornecedores" />
+                                    </h:commandLink>
+                                </div>
                             </p:outputPanel>
                         </f:facet>
                         
                         <p:column filterBy="#{ver.id}" style="width: 5%;" headerText="ID">
                             <h:outputText value="#{ver.id}" />
                         </p:column>
-                        <p:column filterBy="#{ver.nomeFantasia}" headerText=" Nome">
+                        <p:column filterBy="#{ver.nomeFantasia}" headerText="Nome Fantasia">
                             <h:outputText value="#{ver.nomeFantasia}" />
                         </p:column>
-                        <p:column filterBy="#{ver.cnpj}" headerText="Sigla">
+                        <p:column filterBy="#{ver.cnpj}" headerText="CNPJ">
                             <h:outputText value="#{ver.cnpj}" />
                         </p:column>
-                        <p:column style="width:10%;" headerText="Ações">
+                        <p:column filterBy="#{ver.inscEstadual}" headerText="IE">
+                            <h:outputText value="#{ver.inscEstadual}" />
+                        </p:column>
+                        <p:column style="width:15%;" headerText="Ações" exportable="false">
                         <center>
-                            <p:commandButton action="#{fornecedorBean.excluir(ver)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tabelaFornecedor" />
-                            <p:commandButton action="#{fornecedorBean.editar(ver)}" icon="ui-icon-pencil" update="@form" process="tabelaFornecedor" ajax="true"/>
+                            <p:commandButton action="#{fornecedorBean.excluir(ver)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tbl" />
+                            <p:commandButton action="#{fornecedorBean.editar(ver)}" icon="ui-icon-pencil" update="@form" process="tbl" ajax="true"/>
+                            <p:commandButton action="#{fornecedorBean.vizu(ver)}" icon="ui-icon-search" update="@form @form:tblDetail" oncomplete="PF('forDialog').show()" process="tbl" ajax="true" title="Vizualizar" />
                         </center>
                         </p:column>
-                        
                     </p:dataTable>
+                    
+                    <!-- Detail -->
+                    <p:dialog header="Fornecedores" widgetVar="forDialog" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="tblDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty fornecedorBean.lista}" columnClasses="label,value">
+                            <f:facet name="header">
+                                <!--<p:graphicImage name="demo/images/car/#;{dtSelectionView.selectedCar.brand}-big.gif"/> -->
+                                <h:outputLabel value="Fornecedor" />
+                            </f:facet>
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.id}" />
+
+                            <h:outputText value="Razão Social" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.razaoSocial}" />
+
+                            <h:outputText value="Nome Fantasia" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.nomeFantasia}" style="color:#{dtSelectionView.selectedCar.color}"/>
+
+                            <h:outputText value="CNPJ" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.cnpj}" />
+                            
+                            <h:outputText value="Inscrição Estadual" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.inscEstadual}" />
+                            
+                            <h:outputText value="Endereço" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.endereco}, #{fornecedorBean.fornecedor.complemento}" />
+                            
+                            <h:outputText value="Bairro" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.bairro}" />
+                            
+                            <h:outputText value="Cidade/UF" />
+                            <h:outputText value="#{fornecedorBean.fornecedor.cidade.nome} - #{fornecedorBean.fornecedor.cidade.estadoId.sigla}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+                    
                 </h:panelGrid>
         </h:form>
     </ui:define>

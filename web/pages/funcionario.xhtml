@@ -15,8 +15,10 @@
         <p:growl id="growl" showDetail="true" sticky="true" />
         <h:form id="panel">
             <h3 style="margin-left:5px">Funcionarios</h3>
-                <h:panelGrid columns="1" cellpadding="5" style="width: 50%;">
+                <h:panelGrid columns="1" cellpadding="5" style="width: 100%;">
                     
+                    <p:wizard>
+                    <p:tab id="personal" title="Personal">
                     <h:panelGrid columns="6" cellpadding="5">
                         <p:outputLabel value="ID" />
                         <p:inputText id="id" value="#{funcionarioBean.funcionario.id}" disabled="true" size="4" placeholder="0" />
@@ -26,21 +28,26 @@
                         <p:inputText id="dataSaida" value="#{funcionarioBean.funcionario.dataSaida}" disabled="true" size="9" />
                     </h:panelGrid>
 
-                    <h:panelGrid columns="6" cellpadding="5">
+                    <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel value="Nome" />
-                        <p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" onblur="value=value.toUpperCase()" size="51" />
+                        <p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" onblur="value=value.toUpperCase()" size="150" />
+                    </h:panelGrid>
                     
+                    <h:panelGrid columns="6" cellpadding="5">
+                        <p:outputLabel value="CPF" />
+                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{funcionarioBean.funcionario.cpf}" size="50" />
                         <p:outputLabel value="RG" />
                         <p:inputText id="rg" value="#{funcionarioBean.funcionario.rg}" />
-
-                        <p:outputLabel value="CPF" />
-                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{funcionarioBean.funcionario.cpf}" size="24" />
+                        <p:outputLabel value="Data Nascimento" />
+                        <p:calendar id="dataNasc" value="#{funcionarioBean.funcionario.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
                     </h:panelGrid>
-
+                    </p:tab>
+                    
+                    <p:tab id="localizacao" title="Localização">
                     <h:panelGrid columns="6" cellpadding="5">
                         
                         <p:outputLabel value="Endereço" />
-                        <p:inputText id="endereco" value="#{funcionarioBean.funcionario.endereco}" onblur="value=value.toUpperCase()" size="40" />
+                        <p:inputText id="endereco" value="#{funcionarioBean.funcionario.endereco}" onblur="value=value.toUpperCase()" size="60" />
                         <p:outputLabel value="Complemento" />
                         <p:inputText id="complemento" value="#{funcionarioBean.funcionario.complemento}" onblur="value=value.toUpperCase()" />
                         <p:outputLabel value="Bairro" />
@@ -59,8 +66,6 @@
                         
                         <p:outputLabel value="Telefone" />
                         <p:inputMask mask="(99) 99999-9999" id="telefone" value="#{funcionarioBean.funcionario.telefone}" size="12" />
-                        <p:outputLabel value="Data Nascimento" />
-                        <p:calendar id="dataNasc" value="#{funcionarioBean.funcionario.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
                     </h:panelGrid>
                     
                     <h:panelGrid columns="10" cellpadding="5">
@@ -71,6 +76,8 @@
                         <p:password id="senha" value="#{funcionarioBean.funcionario.senha}" />
                         
                     </h:panelGrid>
+                    </p:tab>
+                    </p:wizard>
 
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:commandButton value="Salvar" icon="ui-icon-check" action="#{funcionarioBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFuncionario" />
@@ -79,35 +86,108 @@
                 </h:panelGrid>
                 
                 <h:panelGrid columns="2">
-                    <p:dataTable var="fun" id="tabelaFuncionario" widgetVar="funTable" value="#{funcionarioBean.lista}">
+                    <p:dataTable var="fun" id="tabelaFuncionario" widgetVar="funTable" value="#{funcionarioBean.lista}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                         <f:facet name="header">
                             <p:outputPanel style="text-align: right !important;">
                                 <h:outputText value="Pesquisar: " />
                                 <p:inputText id="globalFilter" onkeyup="PF('funTable').filter()" placeholder="Digite" />
+                            
+                            <!-- Exports -->
+                            <div style="float:left;">
+                                    <h:commandLink>
+                                        <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tabelaFuncionario" fileName="funcionarios" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar pdf">
+                                        <p:graphicImage value="../imagens/pdf.png" width="24"/>
+                                        <p:dataExporter type="pdf" target="tabelaFuncionario" fileName="funcionarios" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage value="/imagens/csv.png" width="22"/>
+                                        <p:dataExporter type="csv" target="tabelaFuncionario" fileName="funcionarios" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar xml">
+                                        <p:graphicImage value="../imagens/xml-512.png" width="24"/>
+                                        <p:dataExporter type="xml" target="tabelaFuncionario" fileName="funcionarios" />
+                                    </h:commandLink>
+                                </div>
                             </p:outputPanel>
                         </f:facet>
                         
                         <p:column filterBy="#{fun.id}" style="width:5%;" headerText="ID" >
                             <h:outputText value="#{fun.id}" />
                         </p:column>
+                        <p:column filterBy="#{fun.dataEntrada}" style="width:10%;" headerText="Entrada" >
+                            <h:outputText value="#{fun.dataEntrada}" />
+                        </p:column>
                         <p:column filterBy="#{fun.nome}" headerText="Nome">
                             <h:outputText value="#{fun.nome}" />
                         </p:column>
-                        <p:column filterBy="#{fun.cpf}" headerText="CPF">
+                        <p:column filterBy="#{fun.cpf}" style="width:12%;" headerText="CPF">
                             <h:outputText value="#{fun.cpf}" />
                         </p:column>
-                        <p:column filterBy="#{fun.telefone}" headerText="Telefone">
+                        <p:column filterBy="#{fun.endereco}" headerText="Endereço">
+                            <h:outputText value="#{fun.endereco}, #{fun.complemento}, #{fun.bairro}, #{fun.cidade.nome} - #{fun.cidade.estadoId.sigla}" />
+                        </p:column>
+                        <p:column filterBy="#{fun.telefone}" style="width: 12%;" headerText="Telefone">
                             <h:outputText value="#{fun.telefone}" />
                         </p:column>
                         
-                        <p:column style="width:10%;" headerText="Ações">
+                        <p:column style="width:15%;" headerText="Ações" exportable="false">
                         <center>
                             <p:commandButton action="#{funcionarioBean.excluir(fun)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tabelaFuncionario" />
                             <p:commandButton action="#{funcionarioBean.editar(fun)}" icon="ui-icon-pencil" update="@form" process="tabelaFuncionario" ajax="true"/>
+                            <p:commandButton action="#{funcionarioBean.editar(fun)}" icon="ui-icon-search" update="@form @form:tblDetail" oncomplete="PF('forDialog').show()" process="tabelaFuncionario" ajax="true" title="Vizualizar" />
                         </center>
                         </p:column>
-                        
                     </p:dataTable>
+                    
+                    <!-- Detail -->
+                    <p:dialog header="Fornecedores" widgetVar="forDialog" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="tblDetail" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty funcionarioBean.lista}" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <!--<p:graphicImage name="demo/images/car/#;{dtSelectionView.selectedCar.brand}-big.gif"/> -->
+                                    <h:outputLabel value="Fornecedor" />
+                                </f:facet>
+
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{funcionarioBean.funcionario.id}" />
+
+                                <h:outputText value="Nome" />
+                                <h:outputText value="#{funcionarioBean.funcionario.nome}" />
+
+                                <h:outputText value="CPF" />
+                                <h:outputText value="#{funcionarioBean.funcionario.cpf}" />
+
+                                <h:outputText value="Endereço" />
+                                <h:outputText value="#{funcionarioBean.funcionario.endereco}" />
+
+                                <h:outputText value="complemento" />
+                                <h:outputText value="#{funcionarioBean.funcionario.complemento}" />
+
+                                <h:outputText value="Bairro" />
+                                <h:outputText value="#{funcionarioBean.funcionario.bairro}" />
+
+                                <h:outputText value="Cidade/UF" />
+                                <h:outputText value="#{funcionarioBean.funcionario.cidade.nome} - #{funcionarioBean.funcionario.cidade.estadoId.sigla}" />
+                                <h:outputText value="CEP" />
+                                <h:outputText value="#{funcionarioBean.funcionario.cep}" />
+                                
+                                <h:outputText value="Telefone" />
+                                <h:outputText value="#{funcionarioBean.funcionario.telefone}" />
+                                
+                                <h:outputText value="Data Nascimento" />
+                                <h:outputText value="#{funcionarioBean.funcionario.dataNascimento}" />
+                                
+                                <h:outputText value="Salário" />
+                                <h:outputText value="R$ #{funcionarioBean.funcionario.salario}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
                 </h:panelGrid>
         </h:form>
     </ui:define>

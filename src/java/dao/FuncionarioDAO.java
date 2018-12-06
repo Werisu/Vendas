@@ -9,6 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import controle.Funcionario;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import util.HibernateUtil;
@@ -20,6 +23,8 @@ import util.HibernateUtil;
 public class FuncionarioDAO {
     private Session session;
     private Transaction transaction;
+    //private EntityManagerFactory factory = Persistence.createEntityManagerFactory("funcionario");
+    //private EntityManager em = factory.createEntityManager();
     
     public void SalvarFuncionario(Funcionario f){
         try {

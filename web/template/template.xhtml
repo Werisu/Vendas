@@ -12,13 +12,15 @@
            <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
            <!--<h:outputScript library="js" name="scripts.js" />-->
             <title>Estoque</title>
-            
+            <!-- BootStrap -->
+            <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+            <script src="../resources/js/bootstrap.min.js" ></script>
         </h:head>
         <h:body>
             <p:growl id="msgGlobal" life="4000"/>
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" header="Sistema de Estoque">
-                    
+                    Bem vindo #{session.getAttribute("usuario")}
                 </p:layoutUnit>
                 
                 <p:layoutUnit position="south" header="Desenvolvido por ACADÊMICOS IFTO">
@@ -30,7 +32,7 @@
                         <p:panelMenu>
                             <p:submenu label="Arquivo">
                                 <p:menuitem value="Principal" url="/jsf/index.xhtml" />
-                                <p:menuitem value="Sair"/>
+                                <p:menuitem value="Sair" url="/jsf/pages/sair.jsp"/>
                             </p:submenu>
                             <p:submenu label="Cadastro">
                                 <p:menuitem value="Produtos"/>
