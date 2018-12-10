@@ -29,30 +29,20 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Wellysson
  */
 @Entity
-@Table(name = "compra")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c")
-    , @NamedQuery(name = "Compra.findById", query = "SELECT c FROM Compra c WHERE c.id = :id")
-    , @NamedQuery(name = "Compra.findByValorTotalCompra", query = "SELECT c FROM Compra c WHERE c.valorTotalCompra = :valorTotalCompra")})
 public class Compra implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "valorTotalCompra")
     private BigDecimal valorTotalCompra;
     @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Fornecedor fornecedorId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compraId")
-    private Collection<Itemcompra> itemcompraCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compraId")
+//    private Collection<Itemcompra> itemcompraCollection;
 
     public Compra() {
+        
     }
 
     public Compra(Integer id) {
@@ -83,38 +73,38 @@ public class Compra implements Serializable {
         this.fornecedorId = fornecedorId;
     }
 
-    @XmlTransient
-    public Collection<Itemcompra> getItemcompraCollection() {
-        return itemcompraCollection;
-    }
+//    @XmlTransient
+//    public Collection<Itemcompra> getItemcompraCollection() {
+//        return itemcompraCollection;
+//    }
+//
+//    public void setItemcompraCollection(Collection<Itemcompra> itemcompraCollection) {
+//        this.itemcompraCollection = itemcompraCollection;
+//    }
 
-    public void setItemcompraCollection(Collection<Itemcompra> itemcompraCollection) {
-        this.itemcompraCollection = itemcompraCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Compra)) {
-            return false;
-        }
-        Compra other = (Compra) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "controle.Compra[ id=" + id + " ]";
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Compra)) {
+//            return false;
+//        }
+//        Compra other = (Compra) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "controle.Compra[ id=" + id + " ]";
+//    }
     
 }

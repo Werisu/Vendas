@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/template/template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="conteudo">
+        <h:outputScript>
+            $('.dinheiro').mask('###0.00', {reverse: true});
+        </h:outputScript>
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <h:form id="form">
+            <h3 style="margin-left:5px">Cadastro de Produtos</h3>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="ID" />
+                    <p:inputText id="id" value="#{produtoBean.produto.id}" disabled="true" />
+                    
+                    <p:outputLabel value="Descrição" />
+                    <p:inputText id="descricao" value="#{produtoBean.produto.descricao}" onblur="value=value.toUpperCase()" />
+                    
+                    <p:outputLabel value="Quantidade" />
+                    <p:inputText id="qtd" value="#{produtoBean.produto.quantidade}" />
+                    
+                    <p:outputLabel value="Valor Compra" />
+                    <p:inputText id="vlCompra" class="dinheiro form-control" value="#{produtoBean.produto.valorCompra}" />
+                    
+                    <p:outputLabel value="Valor Venda" />
+                    <p:inputText id="vlVenda" class="dinheiro form-control" value="#{produtoBean.produto.valorVenda}" />
+                </h:panelGrid>
+                <h:panelGrid columns="3">
+                    <p:commandButton value="Salvar" icon="ui-icon-check" action="#{produtoBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaProduto" />
+                        <p:commandButton value="Atualizar" icon="ui-icon-refresh" action="#{produtoBean.atualizar()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaProduto" />
+                        <p:commandButton value="Reset Code" update="form" process="@this" action="#{produtoBean.reset}"  style="margin-right:20px;" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:dataTable var="est" id="tabelaProduto" widgetVar="proTable" value="#{produtoBean.lista}">
+                        <f:facet name="header">
+                            <p:outputPanel style="text-align: right !important;">
+                                <h:outputText value="Pesquisar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('proTable').filter()" placeholder="Digite" />
+                                
+                                <!-- Exports -->
+                            <div style="float:left;">
+                                    <h:commandLink>
+                                        <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tabelaProduto" fileName="produtos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar pdf">
+                                        <p:graphicImage value="../imagens/pdf.png" width="24"/>
+                                        <p:dataExporter type="pdf" target="tabelaProduto" fileName="produtos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink>
+                                        <p:graphicImage value="/imagens/csv.png" width="22"/>
+                                        <p:dataExporter type="csv" target="tabelaProduto" fileName="produtos" />
+                                    </h:commandLink>
+
+                                    <h:commandLink title="baixar xml">
+                                        <p:graphicImage value="../imagens/xml-512.png" width="24"/>
+                                        <p:dataExporter type="xml" target="tabelaProduto" fileName="produtos" />
+                                    </h:commandLink>
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{est.id}" headerText="ID" style="width: 5%;">
+                            <h:outputText value="#{est.id}" />
+                        </p:column>
+                        <p:column filterBy="#{est.descricao}" headerText="Descrição" style="width: 50%;">
+                            <h:outputText value="#{est.descricao}" />
+                        </p:column>
+                        <p:column filterBy="#{est.quantidade}" headerText="Quantidade">
+                            <h:outputText value="#{est.quantidade}" />
+                        </p:column>
+                        <p:column filterBy="#{est.valorCompra}" headerText="Valor Compra">
+                            <h:outputText value="#{est.valorCompra}" />
+                        </p:column>
+                        <p:column filterBy="#{est.valorVenda}" headerText="Valor Venda">
+                            <h:outputText value="#{est.valorVenda}" />
+                        </p:column>
+                        <!-- AÇOES ============================================================ -->
+                        <p:column style="width:15%;" headerText="Ações" exportable="false">
+                        <center>
+                            <p:commandButton action="#{produtoBean.excluir(est)}" actionListener="#{growlView.deleteMessage()}" icon="ui-icon-trash" update=":growl tabelaProduto" />
+                            <p:commandButton action="#{produtoBean.editar(est)}" icon="ui-icon-pencil" update="@form" process="tabelaProduto" ajax="true"/>
+                        </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:decorate>
+

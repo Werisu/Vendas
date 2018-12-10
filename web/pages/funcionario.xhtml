@@ -79,8 +79,9 @@
                     </p:tab>
                     </p:wizard>
 
-                    <h:panelGrid columns="2" cellpadding="5">
+                    <h:panelGrid columns="3" cellpadding="5">
                         <p:commandButton value="Salvar" icon="ui-icon-check" action="#{funcionarioBean.cadastro()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFuncionario" />
+                        <p:commandButton value="Atualizar" icon="ui-icon-check" action="#{funcionarioBean.atualizar()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaFuncionario" />
                         <p:commandButton value="Reset Code" update="panel" process="@this" action="#{funcionarioBean.reset}"  style="margin-right:20px;" />
                     </h:panelGrid>
                 </h:panelGrid>
