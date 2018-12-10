@@ -11,12 +11,12 @@
             <p:messages id="messages" />
             <p:panelGrid columns="2">
                   <p:outputLabel for="funcionario" value="Nome Usuário:" />
-                  <p:inputText id="funcionario" value="#{funcionarioBean.funcionario.nome}" />
+                  <p:inputText id="funcionario" value="#{usuarioBean.usuario}" />
                    
                   <p:outputLabel for="senha" value="Senha:" />
-                  <p:password id="senha" value="#{funcionarioBean.funcionario.senha}" />
+                  <p:password id="senha" value="#{usuarioBean.senha}" />
                    
-                  <p:commandButton value="Enviar" icon="ui-icon-star" action="#{funcionarioBean.enviar()}" ajax="false">
+                  <p:commandButton value="Enviar" icon="ui-icon-star" action="#{usuarioBean.logar()}" ajax="false">
                   </p:commandButton>
   
             </p:panelGrid>
