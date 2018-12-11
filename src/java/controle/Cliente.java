@@ -51,47 +51,24 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "dataCadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
-    @Size(max = 45)
-    @Column(name = "nome")
     private String nome;
-    @Size(max = 45)
-    @Column(name = "cpf")
     private String cpf;
-    @Size(max = 45)
-    @Column(name = "rg")
     private String rg;
-    @Size(max = 45)
-    @Column(name = "endereco")
     private String endereco;
-    @Size(max = 45)
-    @Column(name = "complemento")
     private String complemento;
-    @Size(max = 45)
-    @Column(name = "bairro")
     private String bairro;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "estado")
     private int estado;
-    @Size(max = 45)
-    @Column(name = "cep")
     private String cep;
-    @Size(max = 45)
-    @Column(name = "telefone")
     private String telefone;
     @JoinColumn(name = "cidade", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cidade cidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
-    private Collection<Venda> vendaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
+//    private Collection<Venda> vendaCollection;
 
     public Cliente() {
     }
@@ -200,39 +177,39 @@ public class Cliente implements Serializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
-
-    @XmlTransient
-    public Collection<Venda> getVendaCollection() {
-        return vendaCollection;
-    }
-
-    public void setVendaCollection(Collection<Venda> vendaCollection) {
-        this.vendaCollection = vendaCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
-            return false;
-        }
-        Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "controle.Cliente[ id=" + id + " ]";
-    }
-    
+//
+//    @XmlTransient
+//    public Collection<Venda> getVendaCollection() {
+//        return vendaCollection;
+//    }
+//
+//    public void setVendaCollection(Collection<Venda> vendaCollection) {
+//        this.vendaCollection = vendaCollection;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Cliente)) {
+//            return false;
+//        }
+//        Cliente other = (Cliente) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "controle.Cliente[ id=" + id + " ]";
+//    }
+//    
 }

@@ -42,7 +42,7 @@
                 <h:panelGrid columns="3">
                     <p:commandButton value="Confirmar" icon="ui-icon-check" action="#{compraBean.confirmarCompra()}" update=":growl" />
                     <p:commandButton value="Salvar" icon="ui-icon-check" action="#{compraBean.cadastro()}" update=":growl" />
-                    <p:commandButton value="Limpar" icon="ui-icon-trash" action="#{compraBean.reset()}" update=":growl" />
+                    <p:commandButton value="Limpar" icon="ui-icon-trash" action="#{compraBean.reset()}" update=":growl @form" />
                 </h:panelGrid>
                 
                 <h:panelGrid columns="2" cellpadding="5">

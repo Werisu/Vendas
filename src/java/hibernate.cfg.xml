@@ -55,5 +55,6 @@ Contributor(s):
     <mapping class="controle.Produto"/>
     <mapping class="controle.Compra"/>
     <mapping class="controle.Itemcompra"/>
+    <mapping class="controle.Cliente"/>
   </session-factory>
 </hibernate-configuration>

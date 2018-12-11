@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import controle.Produto;
 import dao.ProdutoDAO;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @ManagedBean
 @SessionScoped
-public class ProdutoBean {
+public class ProdutoBean implements Serializable{
     private Produto produtos = new Produto();
     private ProdutoDAO produtoDao = new ProdutoDAO();
     private List<Produto> listaProduto;

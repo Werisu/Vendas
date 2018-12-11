@@ -13,6 +13,7 @@ import dao.CompraDAO;
 import dao.FornecedorDAO;
 import dao.ItemCompraDAO;
 import dao.ProdutoDAO;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -25,7 +26,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class CompraBean {
+public class CompraBean implements Serializable {
     private Compra compras = new Compra();
     private Itemcompra itemcompras = new Itemcompra();
     private CompraDAO compraDao = new CompraDAO();
