@@ -42,22 +42,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Venda implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "dataVenda")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataVenda;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "valorTotalVenda")
     private BigDecimal valorTotalVenda;
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cliente clienteId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendaId")
-    private Collection<Itemvenda> itemvendaCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendaId")
+//    private Collection<Itemvenda> itemvendaCollection;
 
     public Venda() {
     }
@@ -98,38 +92,38 @@ public class Venda implements Serializable {
         this.clienteId = clienteId;
     }
 
-    @XmlTransient
-    public Collection<Itemvenda> getItemvendaCollection() {
-        return itemvendaCollection;
-    }
-
-    public void setItemvendaCollection(Collection<Itemvenda> itemvendaCollection) {
-        this.itemvendaCollection = itemvendaCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Venda)) {
-            return false;
-        }
-        Venda other = (Venda) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "controle.Venda[ id=" + id + " ]";
-    }
-    
+//    @XmlTransient
+//    public Collection<Itemvenda> getItemvendaCollection() {
+//        return itemvendaCollection;
+//    }
+//
+//    public void setItemvendaCollection(Collection<Itemvenda> itemvendaCollection) {
+//        this.itemvendaCollection = itemvendaCollection;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Venda)) {
+//            return false;
+//        }
+//        Venda other = (Venda) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "controle.Venda[ id=" + id + " ]";
+//    }
+//    
 }

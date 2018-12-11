@@ -35,15 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Itemvenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "qtdItem")
     private Integer qtdItem;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "valorItem")
     private BigDecimal valorItem;
     @JoinColumn(name = "produto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -98,30 +92,4 @@ public class Itemvenda implements Serializable {
     public void setVendaId(Venda vendaId) {
         this.vendaId = vendaId;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Itemvenda)) {
-            return false;
-        }
-        Itemvenda other = (Itemvenda) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "controle.Itemvenda[ id=" + id + " ]";
-    }
-    
 }

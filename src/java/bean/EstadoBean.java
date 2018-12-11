@@ -7,6 +7,7 @@ package bean;
 
 import controle.Estado;
 import dao.EstadoDAO;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,7 +18,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class EstadoBean {
+public class EstadoBean implements Serializable {
     private Estado estados = new Estado();
     private EstadoDAO estadoDao = new EstadoDAO();
     private List<Estado> listaEstado;
