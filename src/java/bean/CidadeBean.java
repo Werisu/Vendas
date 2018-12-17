@@ -63,4 +63,8 @@ public class CidadeBean implements Serializable{
         this.cidades = cidade;
         return "cidade.xhtml";
     }
+    public String reset(){
+        this.cidades = new Cidade();
+        return "cidade.xhtml";
+    }
 }

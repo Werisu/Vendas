@@ -57,4 +57,9 @@ public class EstadoBean implements Serializable {
         this.estados = t;
         return "estado.xhtml";
     }
+    
+    public String reset(){
+        this.estados = new Estado();
+        return "estado.xhtml";
+    }
 }
