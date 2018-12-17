@@ -5,6 +5,13 @@
  */
 package bean;
 
+import controle.Cidade;
+import controle.Estado;
+import controle.Funcionario;
+import dao.CidadeDAO;
+import dao.EstadoDAO;
+import dao.FuncionarioDAO;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,33 +24,89 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
-    private String usuario = "";
-    private String senha = "";
+    private Funcionario usuario = new Funcionario();
+    private FuncionarioDAO fDao = new FuncionarioDAO(); // usuariocionario dao
+    private CidadeDAO cidadeDao = new CidadeDAO(); // cidade dao
+    private EstadoDAO estadoDao = new EstadoDAO(); // estado dao
     
-    public String logar(){
-        if(usuario.equals("admin") && senha.equals("admin")){
-            return "fornecedores.xhtml";
-        }
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário inválido", "Usuáerio onválido");
-        ctx.addMessage(null, msg);
-        return "";
-    }
-
-    public String getUsuario() {
+    private List<Funcionario> listaFuncionario;
+    private List<Cidade> listaCidade;
+    private List<Estado> listaEstado;
+    
+    public Funcionario getFuncionario(){
         return usuario;
     }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    
+    public List<Funcionario> getLista(){
+        if(this.listaFuncionario == null)
+            this.listaFuncionario = fDao.ListarFuncionario();
+        return this.listaFuncionario;
     }
-
-    public String getSenha() {
-        return senha;
+    
+    public List<Cidade> getCidades(){
+        if(this.listaCidade == null)
+            this.listaCidade = cidadeDao.ListarCidade();
+        return this.listaCidade;
     }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    
+    public List<Estado> getEstados(){
+        if(this.listaEstado == null)
+            this.listaEstado = estadoDao.ListarEstado();
+        return this.listaEstado;
+    }
+    
+    public void cadastro(){
+        this.fDao.SalvarFuncionario(usuario);
+        this.usuario = new Funcionario();
+    }
+    
+    public void atualizar(){
+        this.fDao.AtualizarFuncionario(usuario);
+        this.usuario = new Funcionario();
+    }
+    
+    public void excluir(Funcionario f){
+        this.usuario = f;
+        this.fDao.ExcluirFuncionario(f);
+    }
+    
+    public String editar(Funcionario f){
+        this.usuario = f;
+        return "usuariocionario.xhtml";
+    }
+    
+    public String reset() {
+        this.usuario = new Funcionario();
+        return "usuariocionario.xhtml";
+    }
+    
+    public String logar(Funcionario f){
+        Funcionario usuarioc = this.fDao.buscarFuncionario(f.getCpf());
+        if(usuarioc == null){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Operação inválido", "Confirme a compra!");
+            ctx.addMessage(null, msg);
+            return "";
+        }
+        if(usuarioc.getSenha().equals(f.getSenha())){
+            this.usuario = usuarioc;
+            return "/index.xhtml?faces-redirect=true";
+        }else{
+            return "";
+        }
+    }
+    
+    public boolean isLogado(){
+        if(this.usuario != null){
+            if(!(this.usuario.getCpf() == null || this.usuario.getCpf().equals("")))
+                return true;
+        }
+        return false;
+    }
+    
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/pages/login.xhtml?faces-redirect=true";
     }
     
 }

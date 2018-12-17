@@ -13,6 +13,7 @@ import dao.EstadoDAO;
 import dao.FuncionarioDAO;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -81,17 +82,16 @@ public class FuncionarioBean implements Serializable {
     }
     
     public String logar(Funcionario f){
-        if(!(fun.getCpf() == null || (!(fun.getCpf().equals(""))))){
-            return "";
-        }
-        
         Funcionario func = this.funDao.buscarFuncionario(f.getCpf());
         if(func == null){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Operação inválido", "Confirme a compra!");
+            ctx.addMessage(null, msg);
             return "";
         }
         if(func.getSenha().equals(f.getSenha())){
             this.fun = func;
-            return "funcionario.xhtml?faces-redirect=true";
+            return "/index.xhtml?faces-redirect=true";
         }else{
             return "";
         }
@@ -107,6 +107,6 @@ public class FuncionarioBean implements Serializable {
     
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "login.xhtml?faces-redirect=true";
+        return "/pages/login.xhtml?faces-redirect=true";
     }
 }

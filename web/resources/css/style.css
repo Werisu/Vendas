@@ -6,8 +6,16 @@ Folha de estilo para a atividade de numero 1
     Author     : Wellysson Rocha <wellysson35@gmail.com>
 */
 
+.noBorder{
+    border: none !important;
+}
+
+.yesBorder{
+    border: 1px solid #e1e1e1 !important;
+}
+
 .ui-widget, .ui-widget .ui-widget {
-    font-size: 95% !important;
+    font-size: 14px !important;
 }
 
 .ui-state-active a:link{
