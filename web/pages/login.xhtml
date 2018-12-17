@@ -1,26 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
+        <meta></meta>
+        
+        <script>
+            if(#{funcionarioBean.logado}){
+                window.location.href = 'funcionario.xhtml';
+            }
+        </script>
+        <style type="text/css">
+            .form-signin {
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 15px;
+            }
+        </style>
     </h:head>
-    <h:body>
-        <h:form>
-            <p:messages id="messages" />
-            <p:panelGrid columns="2">
-                  <p:outputLabel for="funcionario" value="Nome Usuário:" />
-                  <p:inputText id="funcionario" value="#{usuarioBean.usuario}" />
-                   
-                  <p:outputLabel for="senha" value="Senha:" />
-                  <p:password id="senha" value="#{usuarioBean.senha}" />
-                   
-                  <p:commandButton value="Enviar" icon="ui-icon-star" action="#{usuarioBean.logar()}" ajax="false">
-                  </p:commandButton>
-  
-            </p:panelGrid>
-        </h:form>
+    <h:body >
+        <b:navBar brand="SIGE" brandHref="#" static="true" />        
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                <h3 class="form-signin-heading" style="text-align: center; font-family: sans-serif;">Login</h3>
+                <b:inputText value="#{funcionarioBean.funcionario.cpf}" id="nickname" placeholder="Nome do Usuário" >
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText value="#{funcionarioBean.funcionario.senha}" id="password" placeholder="Senha" type="password">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputText>
+                <b:commandButton look="primary btn-block" action="#{funcionarioBean.logar(funcionarioBean.funcionario)}" value="Entrar" icon="log-in" size="lg"/>
+            </h:form>
+            <p style="text-align: center">Não possui conta no MeetCon ainda? <a href="cadastro.xhtml">Cadastre-se!</a></p>
+        </b:container>
     </h:body>
+    <b:column span="12" style="margin-top: 5%">
+        <p style="text-align: center">&#169; Nayrton Bertoldo e Luis Felipe Santos, 2018</p>
+    </b:column>
 </html>
 

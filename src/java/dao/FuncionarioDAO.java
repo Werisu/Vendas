@@ -80,4 +80,19 @@ public class FuncionarioDAO {
         }
         return resultado;
     }
+    
+    public Funcionario buscarFuncionario(String cpf){
+        Funcionario resultado = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Query selects = this.session.createQuery("from funcionario where cpf = '"+cpf+"'");
+            resultado = (Funcionario)selects.uniqueResult();
+        } catch (HibernateException e) {
+            System.out.println("Erro ao buscar funcionario");
+        }finally{
+            session.close();
+        }
+        return resultado;
+    }
 }

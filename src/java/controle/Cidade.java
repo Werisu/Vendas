@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Wellysson
  */
 @Entity
+@Table(name = "cidade")
 public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;

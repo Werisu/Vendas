@@ -15,6 +15,11 @@
             <!-- BootStrap -->
             <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
             <script src="../resources/js/bootstrap.min.js" ></script>
+            <script>
+            if (#{!funcionarioBean.logado}) {
+                window.location.href = 'login.xhtml';
+            }
+            </script>
         </h:head>
         <h:body>
             <p:growl id="msgGlobal" life="4000"/>
@@ -32,7 +37,7 @@
                         <p:panelMenu>
                             <p:submenu label="Arquivo">
                                 <p:menuitem value="Principal" url="/jsf/index.xhtml" />
-                                <p:menuitem value="Sair" url="/jsf/pages/sair.jsp"/>
+                                <p:menuitem value="Sair" ajax="false" action="#{funcionarioBean.logout()}" />
                             </p:submenu>
                             <p:submenu label="Cadastro">
                                 <p:menuitem value="Produtos" url="/jsf/pages/produto.xhtml"/>

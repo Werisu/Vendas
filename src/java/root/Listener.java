@@ -28,14 +28,14 @@ public class Listener implements PhaseListener{
     @Override
     public void afterPhase(PhaseEvent event) {
         FacesContext ctx = FacesContext.getCurrentInstance();
-        if(!ctx.getViewRoot().getViewId().equals("/login.xhtml")){
+        if(!ctx.getViewRoot().getViewId().equals("/pages/login1.xhtml")){
             Application app = ctx.getApplication();
             UsuarioBean u = app.evaluateExpressionGet(ctx, "#{usuario}", UsuarioBean.class);
-            /*if(!u.getUsuario().equals("admin")){
-                NavigationHandler handler = app.getNavigationHandler();
-                handler.handleNavigation(ctx, "", "login?faces-redirect=true");
-                ctx.renderResponse();
-            }*/
+//            if(!u.getUsuario().equals("admin")){
+//                NavigationHandler handler = app.getNavigationHandler();
+//                handler.handleNavigation(ctx, "", "/pages/login1");
+//                ctx.renderResponse();
+//            }
         }
     }
 

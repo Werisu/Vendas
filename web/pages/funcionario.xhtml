@@ -8,6 +8,12 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="conteudo">
         
+        <script>
+            if (#{!funcionarioBean.logado}) {
+                window.location.href = 'login.xhtml';
+            }
+        </script>
+        
         <h:outputScript>
             $('.dinheiro').mask('###0.00', {reverse: true});
         </h:outputScript>

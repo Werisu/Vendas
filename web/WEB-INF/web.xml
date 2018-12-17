@@ -27,10 +27,10 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/jsf/pages/login.xhtml</welcome-file>
+        <welcome-file>/jsf/pages/login1.xhtml</welcome-file>
     </welcome-file-list>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/jsf/pages/login.xhtml</location>
+        <location>/jsf/pages/login1.xhtml</location>
     </error-page>
 </web-app>

@@ -22,7 +22,7 @@ public class UsuarioBean {
     
     public String logar(){
         if(usuario.equals("admin") && senha.equals("admin")){
-            return "fornecedores";
+            return "fornecedores.xhtml";
         }
         FacesContext ctx = FacesContext.getCurrentInstance();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário inválido", "Usuáerio onválido");

@@ -109,7 +109,7 @@ public class CompraBean implements Serializable {
             this.itemcompras = new Itemcompra();
             compraConfirmada = false;
             FacesContext ctx = FacesContext.getCurrentInstance();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Operação inválido", "Compra Realizada com Sucesso!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado", "Compra Realizada com Sucesso!");
             ctx.addMessage(null, msg);
         }else{
             FacesContext ctx = FacesContext.getCurrentInstance();

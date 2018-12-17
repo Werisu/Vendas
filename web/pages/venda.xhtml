@@ -22,23 +22,23 @@
                     </p:selectOneMenu>
                     
                     <p:outputLabel value="Produto" />
-                    <p:selectOneMenu id="produto" filter="true" value="#{itemVendaBean.itemVenda.produtoId}" converter="omnifaces.SelectItemsConverter" >
+                    <p:selectOneMenu id="produto" filter="true" value="#{vendaBean.itemVenda.produtoId}" converter="omnifaces.SelectItemsConverter" >
                         <f:selectItem itemLabel="Selecione" itemValue="" />
-                        <f:selectItems value="#{itemVendaBean.produtos}" var="cons" itemLabel="#{cons.descricao}" itemValue="#{cons}"/>
+                        <f:selectItems value="#{vendaBean.produtos}" var="cons" itemLabel="#{cons.descricao}" itemValue="#{cons}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel value="Valor Unitario" />
-                    <p:inputText id="vlProduto" value="#{itemVendaBean.itemVenda.valorItem}" />
+                    <p:inputText id="vlProduto" value="#{vendaBean.itemVenda.valorItem}" />
                     
                     <p:outputLabel value="Quantidade" />
-                    <p:inputText id="qtd" type="number" value="#{itemVendaBean.itemVenda.qtdItem}"/>
+                    <p:inputText id="qtd" type="number" value="#{vendaBean.itemVenda.qtdItem}"/>
 
                     <p:outputLabel value="Valor Total" />
                     <p:inputText id="vlTotal" value="#{vendaBean.venda.valorTotalVenda}"/>
                     
-                    <p:commandButton value="Confirmar Venda" icon="ui-icon-check" action="#{vendaBean.confirmaVenda()}" actionListener="#{growlView.saveMessage}" update=":growl tabelaProduto" />
+                    <p:commandButton value="Confirmar Venda" icon="ui-icon-check" action="#{vendaBean.confirmaVenda()}" update=":growl tabelaProduto" />
                     
-                    <p:commandButton value="Salvar" icon="ui-icon-check" action="#{itemVendaBean.cadastro()}" update=":growl tabelaProduto" />
+                    <p:commandButton value="Salvar" icon="ui-icon-check" action="#{vendaBean.cadastro()}" update=":growl tabelaProduto" />
                 </h:panelGrid>
                 
                 <h:panelGrid columns="2" cellpadding="5">
@@ -93,7 +93,7 @@
                     </p:dataTable>
                 </h:panelGrid>
             
-            <!--<p:outputLabel value="Buscar Produto"/> <p:commandButton value="Buscar Preço" action="itemVendaBean.buscarProduto(produto)}" />-->
+            <!--<p:outputLabel value="Buscar Produto"/> <p:commandButton value="Buscar Preço" action="vendaBean.buscarProduto(produto)}" />-->
             
         </h:form>
     </ui:define>

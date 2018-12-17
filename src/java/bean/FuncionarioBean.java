@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -77,5 +78,35 @@ public class FuncionarioBean implements Serializable {
     public String reset() {
         this.fun = new Funcionario();
         return "funcionario.xhtml";
+    }
+    
+    public String logar(Funcionario f){
+        if(!(fun.getCpf() == null || (!(fun.getCpf().equals(""))))){
+            return "";
+        }
+        
+        Funcionario func = this.funDao.buscarFuncionario(f.getCpf());
+        if(func == null){
+            return "";
+        }
+        if(func.getSenha().equals(f.getSenha())){
+            this.fun = func;
+            return "funcionario.xhtml?faces-redirect=true";
+        }else{
+            return "";
+        }
+    }
+    
+    public boolean isLogado(){
+        if(this.fun != null){
+            if(!(this.fun.getCpf() == null || this.fun.getCpf().equals("")))
+                return true;
+        }
+        return false;
+    }
+    
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "login.xhtml?faces-redirect=true";
     }
 }

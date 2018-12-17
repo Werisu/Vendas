@@ -21,6 +21,10 @@ public class CidadeDAO {
     private Session session;
     private Transaction transaction;
     
+    /**
+     * Método SalvarCidade, vai cadastrar a cidade no banco de dados
+     * @param cidade pega a cidade do bean
+     */
     public void SalvarCidade(Cidade cidade){
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -34,6 +38,10 @@ public class CidadeDAO {
         }
     }
     
+    /**
+     * Método Excluir, esse método deleta um cidade do banco de dados
+     * @param cidade é a cidade que será excluída
+     */
     public void EcluirCidade(Cidade cidade){
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -47,6 +55,10 @@ public class CidadeDAO {
         }
     }
     
+    /**
+     * Método para atualizar dados no banco de dados
+     * @param cidade que será atualizada
+     */
     public void AtualizarCidade(Cidade cidade){
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -60,6 +72,10 @@ public class CidadeDAO {
         }
     }
     
+    /**
+     * Este método é para listar todas cidades do banco de dados
+     * @return o resultado do query selects, irá retornar cada linha.
+     */
     public List<Cidade> ListarCidade(){
         List<Cidade> resultado = null;
         try {
